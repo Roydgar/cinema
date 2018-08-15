@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping(Mappings.USER)
+@CrossOrigin(origins = "http://localhost:63342", allowedHeaders = "*", exposedHeaders = {"error-message"})
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class UserController {
 
@@ -47,6 +48,5 @@ public class UserController {
     public ResponseEntity<?> findById(@PathVariable Long userId) {
         return userService.findById(userId);
     }
-
 
 }

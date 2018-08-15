@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +27,7 @@ public class UserService {
     private SmtpMailSender smtpMailSender;
 
     @Transactional(readOnly = true)
-    public ResponseEntity findById(Long id) {
+    public ResponseEntity<?> findById(Long id) {
         Optional<User> user = userRepository.findById(id);
         return user.isPresent() ? ResponseEntity.ok(user) : ResponseEntity.notFound().build();
     }
@@ -49,7 +50,7 @@ public class UserService {
             return ResponseEntity.status(CONFLICT).header(HEADER_KEY, USER_EXIST).build();
         }
 
-        user.setPassword(HashUtil.hash(user.getEmail().concat(user.getPassword())));
+        user.setPassword(HashUtil.hash(user.getPassword()));
         user.setEmail(user.getEmail().toLowerCase());
         User savedUser = userRepository.save(user);
 
@@ -85,7 +86,7 @@ public class UserService {
             return ResponseEntity.status(UNAUTHORIZED).header(HEADER_KEY, USER_EMAIL_WASNT_CONFIRMED).build();
         }
 
-        if (HashUtil.check(email.concat(password), loggedUser.getPassword())) {
+        if (HashUtil.check(password, loggedUser.getPassword())) {
             logger.info("login() call; SUCCESS ; loginData = " + loginData +"; loggedUser = " + loggedUser);
             return ResponseEntity.ok(loggedUser);
         }

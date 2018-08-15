@@ -2,7 +2,7 @@ package tk.roydgar.cinema.util.constants;
 
 public interface HeaderMessages {
 
-    String HEADER_KEY = "message";
+    String HEADER_KEY = "error-message";
     String USER_VOTED_COMMENT = "Given user already voted this comment";
     String USER_EMAIL_DOESNT_EXIST = "Wrong user email. User with given email doesn't exist";
     String USER_WRONG_PASSWORD = "Wrong user password";
