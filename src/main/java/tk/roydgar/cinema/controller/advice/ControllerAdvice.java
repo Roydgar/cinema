@@ -33,18 +33,12 @@ public class ControllerAdvice {
     public ResponseEntity<?> handleGeneralException(HttpServletRequest request, Exception ex) {
         logger.error(ERROR, ex);
         return ResponseEntity.badRequest().header(ERROR, INTERNAL_ERROR).build();
-
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<?> handleValidationException(HttpServletRequest request, Exception ex) {
         logger.error(ERROR, ex);
         return ResponseEntity.badRequest().header(ERROR, ex.getMessage()).build();
-    }
-
-    @ModelAttribute
-    public void setAccessControlResponseHeader(HttpServletResponse response) {
-        response.setHeader("Access-Control-Allow-Origin", "http://localhost:63342");
     }
 
 }

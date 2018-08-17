@@ -2,6 +2,8 @@ package tk.roydgar.cinema.util;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
+import java.time.LocalDate;
+
 public class HashUtil {
 
     public static String hash(String passwordPlaintext) {
@@ -15,7 +17,7 @@ public class HashUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println(hash(""));
+        System.out.println(LocalDate.now());
     }
 
 }

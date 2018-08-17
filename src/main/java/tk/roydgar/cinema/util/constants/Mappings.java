@@ -8,4 +8,6 @@ public interface Mappings {
     String USER_REGISTER = "/register";
     String USER_LOGIN = "/login";
 
+    String SESSION = API + "/session";
+
 }

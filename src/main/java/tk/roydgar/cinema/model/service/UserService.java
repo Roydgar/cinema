@@ -44,7 +44,7 @@ public class UserService {
         return  ResponseEntity.ok(user.get());
     }
 
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional
     public ResponseEntity<?> register(User user) {
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             return ResponseEntity.status(CONFLICT).header(HEADER_KEY, USER_EXIST).build();
